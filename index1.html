@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akmal | Cyber Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #131c2e;
+            --text-main: #cbd5e1;
+            --text-heading: #f8fafc;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --border-color: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Навигация */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.2rem;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 25px; }
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent-green); }
+
+        /* Переключатель языков */
+        .lang-switcher {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #637a90;
+        }
+        .lang-btn { cursor: pointer; transition: color 0.2s; padding: 2px 4px; }
+        .lang-btn:hover, .lang-btn.active { color: var(--accent-green); font-weight: 600; }
+
+        /* Hero Секция */
+        #about { scroll-margin-top: 40px; }
+        .hero { display: flex; align-items: center; gap: 30px; margin-bottom: 60px; }
+        
+        .avatar {
+            width: 150px; height: 150px; flex-shrink: 0; border-radius: 50%;
+            border: 2px solid var(--accent-blue); background-color: var(--bg-card);
+            overflow: hidden; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .initial-avatar {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            color: #fff; font-size: 4.5rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .hero-text h1 { font-size: 2rem; color: var(--text-heading); margin-bottom: 10px; }
+        .hero-text p { font-size: 1.1rem; color: #94a3b8; }
+
+        /* Заголовки */
+        h2 {
+            font-size: 1.5rem; color: var(--text-heading); border-left: 4px solid var(--accent-blue);
+            padding-left: 12px; margin: 40px 0 20px; font-family: 'Fira Code', monospace;
+        }
+        section { scroll-margin-top: 40px; }
+
+        /* Терминал */
+        .terminal {
+            background-color: #011627; border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 16px; font-family: 'Fira Code', monospace; font-size: 0.9rem; color: #acb6bf;
+            margin-bottom: 40px; height: 280px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .term-header { color: #637a90; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 12px; }
+        .prompt { color: var(--accent-green); }
+        .command-input {
+            background: transparent; border: none; color: #eceff1;
+            font-family: 'Fira Code', monospace; font-size: 0.9rem;
+            outline: none; width: 70%; margin-left: 8px;
+        }
+
+        /* Навыки */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .skill-category { background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); }
+        .skill-category h3 { color: var(--accent-green); font-size: 1.1rem; margin-bottom: 15px; }
+        .skill-tags, .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag {
+            background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 4px 10px;
+            border-radius: 4px; font-size: 0.85rem; border: 1px solid rgba(59, 130, 246, 0.2); font-family: 'Fira Code', monospace;
+        }
+
+        /* Проекты */
+        .projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        @media (min-width: 768px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } .flagship { grid-column: span 2; } }
+        .project-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 24px; transition: all 0.3s; display: flex; flex-direction: column; }
+        .project-card:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
+        .flagship { background: linear-gradient(145deg, #112240 0%, var(--bg-card) 100%); border: 1px solid var(--accent-blue); }
+        .project-title { font-size: 1.2rem; font-weight: 600; color: var(--text-heading); margin-bottom: 12px; font-family: 'Fira Code', monospace; }
+        .project-desc { flex-grow: 1; margin-bottom: 15px; }
+        .project-links { margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .project-links a { color: var(--accent-green); text-decoration: none; font-size: 0.9rem; margin-right: 15px; font-family: 'Fira Code', monospace; }
+
+        /* Поддержка */
+        .donation-container { background-color: var(--bg-card); border: 1px dashed var(--accent-blue); border-radius: 8px; padding: 30px; text-align: center; }
+        .btn {
+            background: transparent; border: 1px solid var(--accent-blue); color: var(--text-heading);
+            padding: 10px 20px; border-radius: 6px; cursor: pointer; margin: 5px; font-family: 'Fira Code', monospace; transition: all 0.2s ease;
+        }
+        .btn:hover { background: rgba(59, 130, 246, 0.1); }
+
+        /* Футер */
+        footer { margin-top: 60px; padding: 20px 0; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: #94a3b8; }
+        .footer-links a { color: var(--accent-blue); text-decoration: none; margin-right: 15px; }
+        .footer-links a:hover { color: var(--accent-green); text-decoration: underline; }
+        .system-status { display: flex; align-items: center; gap: 8px; color: var(--accent-green); }
+        .status-dot { width: 8px; height: 8px; background-color: var(--accent-green); border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); }
+
+        @media (max-width: 600px) {
+            .hero { flex-direction: column; text-align: center; }
+            .nav-right { flex-direction: column; gap: 10px; }
+            footer { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Навигация -->
+        <nav>
+            <div class="logo">./akmal.sh</div>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#about" data-i18n="nav_about">О себе</a>
+                    <a href="#skills" data-i18n="nav_skills">Стек</a>
+                    <a href="#projects" data-i18n="nav_projects">Проекты</a>
+                    <a href="#support" data-i18n="nav_support">Поддержать</a>
+                </div>
+                <div class="lang-switcher">
+                    <span class="lang-btn" onclick="changeLanguage('ru')" id="lang-ru">RU</span> | 
+                    <span class="lang-btn" onclick="changeLanguage('en')" id="lang-en">EN</span> | 
+                    <span class="lang-btn" onclick="changeLanguage('uz')" id="lang-uz">UZ</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero блок -->
+        <section class="hero" id="about">
+            <div class="avatar"><div class="initial-avatar">A</div></div>
+            <div class="hero-text">
+                <h1 data-i18n="hero_title">Привет, я Акмал</h1>
+                <p data-i18n="hero_desc">Студент ТУИТ, ИБ-специалист и разработчик. Фокусируюсь на кибербезопасности, анализе защищенности систем (Red Teaming) и создании ИИ-решений для медицины.</p>
+            </div>
+        </section>
+
+        <!-- Терминал -->
+        <section class="terminal" id="terminal-container">
+            <div class="term-header" id="term-header-text">bash - akmal@xubuntu-cyber-lab:~ (введи 'help')</div>
+            <div id="term-output"></div>
+            <div style="display: flex; align-items: center; margin-top: 5px;">
+                <span class="prompt">akmal@xubuntu:~$</span>
+                <input type="text" class="command-input" id="cmd-input" autocomplete="off" autofocus>
+            </div>
+        </section>
+
+        <!-- Навыки -->
+        <section id="skills">
+            <h2 data-i18n="title_skills">01. Стек_Технологий</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>[+] CyberSec / OS</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Red Teaming</span><span class="tag">Pentest</span>
+                        <span class="tag">OWASP</span><span class="tag">Xubuntu/Kali</span><span class="tag">TCP/IP</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 data-i18n="skill_back">[+] Backend / ML</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Python</span><span class="tag">PHP</span>
+                        <span class="tag">SQL</span><span class="tag">Machine Learning</span><span class="tag">Bash</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 data-i18n="skill_hard">[+] Hardware / IoT</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Arduino</span><span class="tag">C/C++</span>
+                        <span class="tag" data-i18n="tag_circuit">Схемотехника</span><span class="tag">Embedded</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Проекты -->
+        <section id="projects">
+            <h2 data-i18n="title_projects">02. Директория_Проектов</h2>
+            <div class="projects-grid">
+                <div class="project-card flagship">
+                    <div class="project-title">🚀 NOWL ECG-AI — Нейросетевой анализ ЭКГ</div>
+                    <div class="project-desc" data-i18n="p1_desc">ИИ-система для предобработки биосигналов и распознавания патологий (блокады ножек пучка Гиса, инфаркт миокарда) с точностью валидации AUROC = 0.959.</div>
+                    <div class="tags"><span class="tag">Python</span><span class="tag">Machine Learning</span><span class="tag">Signal Processing</span></div>
+                    <div class="project-links"><a href="#">[>] GitHub</a><a href="#">[>] Demo API</a></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">🌐 TG Bot & PHP Ecosystem</div>
+                    <div class="project-desc" data-i18n="p2_desc">Автоматизация на PHP: умные боты, интеграция с реляционными базами SQL, трекинг активности.</div>
+                    <div class="tags"><span class="tag">PHP</span><span class="tag">SQL</span><span class="tag">Telegram API</span></div>
+                    <div class="project-links"><a href="#">[>] Source</a></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">⚙️ Arduino Smart Modules</div>
+                    <div class="project-desc" data-i18n="p3_desc">Проектирование и сборка аппаратных комплексов: температурный мониторинг, сенсоры дистанции.</div>
+                    <div class="tags"><span class="tag">Arduino</span><span class="tag">C/C++</span><span class="tag">Hardware</span></div>
+                    <div class="project-links"><a href="#">[>] Schemes</a></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Поддержка -->
+        <section id="support">
+            <h2 data-i18n="title_support">03. Поддержка_Разработки</h2>
+            <div class="donation-container">
+                <h3 style="color: var(--accent-blue); font-family: 'Fira Code'; margin-bottom: 10px;" data-i18n="donate_title">☕ Залить топливо в Lada Vesta</h3>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;" data-i18n="donate_desc">Поддержите ночные смены за кодом и рулем. Выберите протокол передачи средств:</p>
+                <div>
+                    <button class="btn" onclick="handleDonate('uzcard')">Uzcard / Humo</button>
+                    <button class="btn" onclick="handleDonate('crypto')">Crypto (USDT)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Футер -->
+        <footer>
+            <div class="footer-links">
+                <a href="#">Telegram: @akmal_cyber</a>
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+            </div>
+            <div class="system-status">
+                <div class="status-dot"></div>
+                <span id="sys-status-text">System status: Operational</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Логика Локализации и Терминала -->
+    <script>
+        // Словарь переводов
+        const dictionary = {
+            ru: {
+                nav_about: "О себе", nav_skills: "Стек", nav_projects: "Проекты", nav_support: "Поддержать",
+                hero_title: "Привет, я Акмал",
+                hero_desc: "Студент ТУИТ, ИБ-специалист и разработчик. Фокусируюсь на кибербезопасности, анализе защищенности систем (Red Teaming) и создании ИИ-решений для медицины.",
+                title_skills: "01. Стек_Технологий", skill_back: "[+] Backend / ML", skill_hard: "[+] Hardware / IoT", tag_circuit: "Схемотехника",
+                title_projects: "02. Директория_Проектов",
+                p1_desc: "ИИ-система для предобработки биосигналов и распознавания патологий (блокады ножек пучка Гиса, инфаркт миокарда) с точностью валидации AUROC = 0.959.",
+                p2_desc: "Автоматизация на PHP: умные боты, интеграция с реляционными базами SQL, трекинг активности.",
+                p3_desc: "Проектирование и сборка аппаратных комплексов: температурный мониторинг, сенсоры дистанции.",
+                title_support: "03. Поддержка_Разработки",
+                donate_title: "☕ Залить топливо в Lada Vesta",
+                donate_desc: "Поддержите ночные смены за кодом и рулем. Выберите протокол передачи средств:",
+                term_header: "bash - akmal@xubuntu-cyber-lab:~ (введи 'help')",
+                alert_uzcard: "Реквизиты карты Uzcard/Humo: 8600 0000 0000 0000\nПолучатель: Акмал",
+                alert_crypto: "USDT TRC20 Адрес: T...xxxxxxxxxxxxx",
+                term_help: `Доступные команды:<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">whoami</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- информация о системе<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">skills</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- стек технологий<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">ls projects</span>&nbsp;- список директорий проектов<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">cat contact</span>&nbsp;- вывести контакты для связи<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">ping github</span>&nbsp;- проверка соединения<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">clear</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- очистить терминал`,
+                term_whoami: "Студент ТУИТ, безопасник, разработчик. Днем ломаю и защищаю системы, ночью пишу код. Цель: сделать мир безопаснее.",
+                term_skills: "[+] Linux, Pentest, PHP, Python, Arduino, ML в медицине.",
+                term_ping: `PING github.com (140.82.113.3) 56(84) bytes of data.<br>64 bytes from 140.82.113.3: icmp_seq=1 ttl=54 time=14.2 ms<br>--- github.com ping statistics ---<br>2 packets transmitted, 2 received, 0% packet loss`
+            },
+            en: {
+                nav_about: "About", nav_skills: "Stack", nav_projects: "Projects", nav_support: "Support",
+                hero_title: "Hi, I'm Akmal",
+                hero_desc: "TUIT student, cybersecurity specialist, and developer. Focusing on cybersec, penetration testing (Red Teaming), and building AI solutions for medicine.",
+                title_skills: "01. Tech_Stack", skill_back: "[+] Backend / ML", skill_hard: "[+] Hardware / IoT", tag_circuit: "Circuits",
+                title_projects: "02. Project_Directory",
+                p1_desc: "AI system for biosignal preprocessing and cardiac pathology recognition (BBB, myocardial infarction) with validation accuracy AUROC = 0.959.",
+                p2_desc: "PHP automation: smart bots, integration with relational SQL databases, and user activity tracking.",
+                p3_desc: "Design and assembly of hardware complexes: temperature monitoring, ultrasonic distance sensors.",
+                title_support: "03. Support_Development",
+                donate_title: "☕ Refuel Lada Vesta",
+                donate_desc: "Support night shifts behind the wheel and the keyboard. Choose transfer protocol:",
+                term_header: "bash - akmal@xubuntu-cyber-lab:~ (type 'help')",
+                alert_uzcard: "Uzcard/Humo details: 8600 0000 0000 0000\nReceiver: Akmal",
+                alert_crypto: "USDT TRC20 Address: T...xxxxxxxxxxxxx",
+                term_help: `Available commands:<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">whoami</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- system information<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">skills</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- technology stack<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">ls projects</span>&nbsp;- list project directories<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">cat contact</span>&nbsp;- display contact info<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">ping github</span>&nbsp;- test connection<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">clear</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- clear terminal`,
+                term_whoami: "TUIT student, security researcher, developer. Breaking and securing systems by day, writing code by night. Goal: make the digital world safer.",
+                term_skills: "[+] Linux, Pentest, PHP, Python, Arduino, ML in medicine.",
+                term_ping: `PING github.com (140.82.113.3) 56(84) bytes of data.<br>64 bytes from 140.82.113.3: icmp_seq=1 ttl=54 time=16.4 ms<br>--- github.com ping statistics ---<br>2 packets transmitted, 2 received, 0% packet loss`
+            },
+            uz: {
+                nav_about: "Men haqimda", nav_skills: "Texnologiyalar", nav_projects: "Loyihalar", nav_support: "Qo'llab-quvvatlash",
+                hero_title: "Salom, men Akmalman",
+                hero_desc: "TATU talabasi, kiberxavfsizlik mutaxassisi va dasturchi. Kiberxavfsizlik, tizimlar xavfsizligi tahlili (Red Teaming) va tibbiyot uchun sun'iy intellekt (AI) yechimlarini yaratishga e'tibor qarataman.",
+                title_skills: "01. Texnologiyalar_Steki", skill_back: "[+] Backend / ML", skill_hard: "[+] Qurilmalar / IoT", tag_circuit: "Sxemotexnika",
+                title_projects: "02. Loyihalar_Katalogi",
+                p1_desc: "Biosignallarga dastlabki ishlov berish va yurak patologiyalarini (Gis tutami oyoqchalari blokadalari, miokard infarkti) aniqlash uchun AI tizimi. Validatsiya aniqligi AUROC = 0.959.",
+                p2_desc: "PHP-da avtomatlashtirish: aqlli botlar, SQL relyatsion ma'lumotlar bazalari bilan integratsiya, foydalanuvchi faolligini kuzatish.",
+                p3_desc: "Uskunalar majmualarini loyihalash va yig'ish: harorat monitoringi, ultratovushli masofa datchiklari.",
+                title_support: "03. Rivojlanishni_Qo'llab_Quvvatlash",
+                donate_title: "☕ Lada Vesta-ga yonilg'i quyish",
+                donate_desc: "Kod va rul ortidagi tungi navbatchiliklarni qo'llab-quvvatlang. Pul o'tkazish protokolini tanlang:",
+                term_header: "bash - akmal@xubuntu-cyber-lab:~ ('help' deb yozing)",
+                alert_uzcard: "Uzcard/Humo karta rekvizitlari: 8600 0000 0000 0000\nQabul qiluvchi: Akmal",
+                alert_crypto: "USDT TRC20 Manzili: T...xxxxxxxxxxxxx",
+                term_help: `Mavjud buyruqlar:<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">whoami</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- tizim haqida ma'lumot<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">skills</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- texnologiyalar steki<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">ls projects</span>&nbsp;- loyihalar katalogi ro'yxati<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">cat contact</span>&nbsp;- aloqa ma'lumotlari<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">ping github</span>&nbsp;- ulanishni tekshirish<br>
+                &nbsp;&nbsp;<span style="color:var(--accent-blue)">clear</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- terminalni tozalash`,
+                term_whoami: "TATU talabasi, kiberxavfsizlik tadqiqotchisi, dasturchi. Kunduzi tizimlarni buzaman va himoya qilaman, kechasi kod yozaman. Maqsad: raqamli dunyoni xavfsizroq qilish.",
+                term_skills: "[+] Linux, Pentest, PHP, Python, Arduino, Tibbiyotda ML.",
+                term_ping: `PING github.com (140.82.113.3) 56(84) bytes of data.<br>64 bytes from 140.82.113.3: icmp_seq=1 ttl=54 time=15.1 ms<br>--- github.com ping statistics ---<br>2 packets transmitted, 2 received, 0% packet loss`
+            }
+        };
+
+        let currentLang = localStorage.getItem('portfolio_lang') || 'ru';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('portfolio_lang', lang);
+            
+            // Обновляем активный класс на кнопках
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+
+            // Переводим элементы с атрибутом data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if (dictionary[lang][key]) {
+                    elem.innerHTML = dictionary[lang][key];
+                }
+            });
+
+            // Отдельный перевод для заголовка терминала
+            document.getElementById('term-header-text').innerText = dictionary[lang]['term_header'];
+        }
+
+        function handleDonate(type) {
+            alert(dictionary[currentLang][`alert_${type}`]);
+        }
+
+        // Инициализация языка при загрузке
+        changeLanguage(currentLang);
+
+        /* Логика Терминала */
+        const input = document.getElementById('cmd-input');
+        const output = document.getElementById('term-output');
+        const container = document.getElementById('terminal-container');
+
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const cmd = input.value.trim().toLowerCase();
+                const line = document.createElement('div');
+                line.innerHTML = `<span class="prompt">akmal@xubuntu:~$</span> <span style="color:#eceff1">${cmd}</span>`;
+                output.appendChild(line);
+
+                const res = document.createElement('div');
+                res.style.color = '#acb6bf';
+                res.style.marginBottom = '8px';
+
+                switch(cmd) {
+                    case 'help': res.innerHTML = dictionary[currentLang]['term_help']; break;
+                    case 'whoami': res.innerHTML = dictionary[currentLang]['term_whoami']; break;
+                    case 'skills': res.innerHTML = dictionary[currentLang]['term_skills']; break;
+                    case 'ls projects':
+                    case 'ls':
+                        res.innerHTML = `<span style="color:var(--accent-blue); font-weight:bold;">nowl-ecg-ai/</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--accent-blue); font-weight:bold;">tg-bot-ecosystem/</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--accent-blue); font-weight:bold;">arduino-modules/</span>`;
+                        break;
+                    case 'cat contact':
+                    case 'cat contact.txt':
+                        res.innerHTML = `Telegram:&nbsp;&nbsp;<a href="#" style="color:var(--accent-green); text-decoration:none;">@akmal_cyber</a><br>GitHub:&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" style="color:var(--accent-green); text-decoration:none;">github.com/akmal-cyber</a>`;
+                        break;
+                    case 'ping github':
+                    case 'ping github.com': res.innerHTML = dictionary[currentLang]['term_ping']; break;
+                    case 'clear': output.innerHTML = ''; input.value = ''; return;
+                    case '': break;
+                    default: 
+                        res.innerHTML = currentLang === 'ru' ? `bash: ${cmd}: команда не найдена` : 
+                                        (currentLang === 'uz' ? `bash: ${cmd}: buyruq topilmadi` : `bash: ${cmd}: command not found`);
+                }
+
+                if(cmd) output.appendChild(res);
+                input.value = '';
+                container.scrollTop = container.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
